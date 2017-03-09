@@ -1,2 +1,5 @@
-*.json
+
 *.txt
+/node_modules
+/data
+/build
