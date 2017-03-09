@@ -6,50 +6,23 @@ const ROOT_URL = "localhost:9000/flickr/"
 class App extends Component {
     constructor(props) {
         super(props);
+        this.colors = ["blue","yellow","red","orange","green","purple", "pink" ];
+        this.state={
 
-        this.state = {
-            fotosAzul: [],
-            fotosRojo:[],
-            fotosNaranja:[],
-            fotosAmarillo:[],
-            fotosVerde:[],
-            fotosMorado:[],
-            busqueda: '',
-            codigo: '',
-            nota: ''
         }
+        this.colors.forEach((c)=>{
+            this.setState({[c]:[]});
+        })
+
+
+
     }
-    obtenerFotos() {
-        axios.get(ROOT_URL+ this.state.busqueda + " blue")
+    getPhotos(busqueda,color) {
+        axios.get(ROOT_URL+ busqueda + " color")
             .then(response => {
-                this.setState({
-                    fotosAzul: response.data
-                })
+                return response.data;
             })
-        axios.get(ROOT_URL+ this.state.busqueda + " red")
-            .then(response => {
-                this.setState({
-                    fotosRojo: response.data
-                })
-            })
-        axios.get(ROOT_URL+ this.state.busqueda + " yellow")
-            .then(response => {
-                this.setState({
-                    fotosAmarillo: response.data
-                })
-            })
-        axios.get(ROOT_URL+ this.state.busqueda + " green")
-            .then(response => {
-                this.setState({
-                    fotosVerde: response.data
-                })
-            })
-        axios.get(ROOT_URL+ this.state.busqueda + " orange")
-            .then(response => {
-                this.setState({
-                    fotosNaranja: response.data
-                })
-            })
+
     }
     obtenerFotosRojo() {
         axios.get(ROOT_URL+ this.state.busqueda + " purple")
@@ -66,7 +39,7 @@ class App extends Component {
                     {/*<img src={logo} className="App-logo" alt="logo" />*/}
                     <h2>Flickr Rainbow</h2>
                     <div className="inline">
-                        <p > Search for something on Flickr and we will get you a rainbow of it</p>
+                        <span className="text-muted"> Search for something on Flickr and we will get you a rainbow of it              </span>
                         <a href="https://jscardona12.github.io/MyWebPage/ " > by Juan Sebastian Cardona </a>
                     </div>
                     <input type="text" value={this.state.busqueda} onChange={(event) => {
