@@ -1,13 +1,14 @@
 import React, {Component} from 'react';
 import axios from 'axios'
 import './App.css';
-import Photo from './Photo'
+import PhotoColumn from './PhotoColumn'
 
-const ROOT_URL = "localhost:9000/flickr/"
+const ROOT_URL = "http://localhost:9000/flickr/"
+
+let colors = ["red", "orange", "yellow", "green", "blue", "purple"];
 class App extends Component {
     constructor(props) {
         super(props);
-        this.colors = ["blue", "red", "green", "yellow", "orange", "cyan", "purple"];
         this.state = {
             busqueda: ""
         }
@@ -15,25 +16,27 @@ class App extends Component {
     }
 
     getPhotos(color) {
-        axios.get(ROOT_URL + this.state.busqueda + " color")
-            .then(response => {
-                return response.data;
-            })
+
 
     }
 
-    getColorPhotos(){
-        this.colors.forEach((c) => {
-            var respond = this.getPhotos(c);
-            this.setState({[c]:respond});
+    getColorPhotos() {
+        colors.forEach((c) => {
+            console.log(ROOT_URL + this.state.busqueda + " " + c)
+            axios.get(ROOT_URL + this.state.busqueda + " " + c)
+                .then(response => {
+                    this.setState({[c]: response.data.photos.photo});
+                })
+
         });
 
     }
 
-    componentDidMount(){
-        this.colors.forEach((c) => {
+    componentWillMount() {
+        colors.forEach((c) => {
             this.setState({[c]: []});
-            console.log(this.state);
+            console.log("Hola ");
+            console.log(this.state[c]);
         });
     }
 
@@ -57,18 +60,25 @@ class App extends Component {
                         this.setState({busqueda: event.target.value})
                     }}/>
                 </span>
-                    <button onClick={this.getColorPhotos()}> Buscar</button>
-                    {this.colors.map(c => {
-                        if (this.state && this.state[c]) {
-                            console.log("EXISTE " + this.state[c]);
-                            this.state[c].map(photo => {
-                                <Photo/>
-                            })
-                        }
-                    })}
+                    <button onClick={this.getColorPhotos.bind(this)}> Buscar</button>
                 </div>
+                <div className="text-vertical-center">
+                    <h1>THIS IS YOUR RAINBOW</h1>
+                </div>
+                <div className="container">
+                    <div className="col-md-2"></div>
+                    <div className="col-md-8">
+                        {colors.map((c, index) => {
+                            if (this.state && this.state[c]) {
+                                return <PhotoColumn key={index} photos={this.state[c]}/>
 
+                            }
+                        })}
+                    </div>
+
+                </div>
             </div>
+
         );
     }
 }
