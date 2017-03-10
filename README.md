@@ -2,7 +2,7 @@
 
 This is a simple project that helps bootstrap projects that use create-react-app + node + express + flickrapi
 
-To use this boilerplate clone it:
+To use this app:
 
 ```
 git clone https://github.com/jscardona12/flickrRainbow.git myApp
