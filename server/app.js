@@ -11,19 +11,26 @@ const app = express();
 // $PROJECT_HOME/server/api_key.txt
 // $PROJECT_HOME/server/api_secret.txt
 function getApiKeys(callback, errorcallback) {
-	fs.readFile(path.resolve(__dirname,"./api_key.txt"), "utf-8", (err, api_key) => {
-		if (err) {
-			errorcallback(err);
-			return;
-		}
-		fs.readFile(path.resolve(__dirname,"./api_secret.txt"), "utf-8",(err, api_secret) => {
-			if (err) {
-				errorcallback(err);
-				return;
-			}
-			callback(api_key, api_secret);
-		});
-	});
+	if(process.env.API_KEY && process.env.API_SECRET)
+	{
+        callback(process.env.API_KEY, process.env.API_SECRET);
+	}
+	else {
+        fs.readFile(path.resolve(__dirname, "./api_key.txt"), "utf-8", (err, api_key) => {
+            if (err) {
+                errorcallback(err);
+                return;
+            }
+            fs.readFile(path.resolve(__dirname, "./api_secret.txt"), "utf-8", (err, api_secret) => {
+                if (err) {
+                    errorcallback(err);
+                    return;
+                }
+                callback(api_key, api_secret);
+            });
+
+        });
+    }
 }
 
 // Setup logger
