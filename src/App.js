@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import axios from 'axios'
 import './App.css';
 import PhotoColumn from './PhotoColumn'
-const ROOT_URL = "http://localhost:9000/flickr/"
+const ROOT_URL = "https://flickrrainbow.herokuapp.com/flickr/"
 
 let colors = ["red", "orange", "yellow", "green", "blue", "purple"];
 class App extends Component {
