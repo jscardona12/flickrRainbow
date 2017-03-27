@@ -32,5 +32,8 @@ And open [http://localhost:9000](http://localhost:9000)
 * The [flickrapi node module documentation](https://www.npmjs.com/package/flickrapi)
 * And this [page that explains how to build the urls for the images](https://www.flickr.com/services/api/misc.urls.html)
 
+#Cosa innovadora
+Interfaz mas bonita.
+
 
 
